@@ -1,18 +1,16 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
+import type { Claim } from "@/lib/schemas/claim";
+import { cn } from "@/lib/utils";
 import {
-  Calendar,
   Activity,
   CheckCircle2,
-  Clock,
-  Info
+  Clock
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-import { LanguageSwitcher } from "./LanguageSwitcher";
 import { AiSummaryModal } from "./AiSummaryModal";
-import type { Claim } from "@/lib/schemas/claim";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 // ─── Metric card ──────────────────────────────────────────────────────────────
 

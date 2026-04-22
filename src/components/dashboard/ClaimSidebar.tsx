@@ -1,19 +1,18 @@
 "use client";
 
-import {
-  Hash,
-  ShieldAlert,
-  CheckCircle2,
-  Clock,
-  Loader2,
-  AlertCircle,
-  ChevronRight,
-  Info
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
-import { STATUS_CONFIG } from "@/components/timeline/shared/status-config";
 import type { Claim, ProcessNode, ProcessStatus } from "@/lib/schemas/claim";
+import { cn } from "@/lib/utils";
+import {
+  AlertCircle,
+  CheckCircle2,
+  ChevronRight,
+  Clock,
+  Hash,
+  Info,
+  Loader2,
+  ShieldAlert
+} from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // ─── Section wrapper ──────────────────────────────────────────────────────────
 
@@ -76,7 +75,7 @@ function InfoRow({
 
 function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
   const { t } = useTranslation();
-  
+
   const StatusDot = () => {
     switch (node.status as ProcessStatus) {
       case "Completed":
@@ -155,7 +154,7 @@ export function ClaimSidebar({ claim }: ClaimSidebarProps) {
           ))}
         </div>
       </SidebarCard>
-      
+
       {/* ── Info message ─────────────────────────────────────────────────────── */}
       <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 px-4 py-3 flex items-start gap-3">
         <Info className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
