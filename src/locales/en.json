@@ -22,25 +22,23 @@
     "urgentAction": "Urgent Action",
     "urgentDesc": "Previous policy details are required for depreciation calculation.",
     "progressTitle": "Claim Process Progress",
-    "progressPercent": "{{percent}}% Completed"
+    "progressPercent": "{{percent}}% Completed",
+    "currentStatus": "Current Status",
+    "stepProgress": "Step {{completed}} / {{total}}",
+    "remainingTime": "Estimated Remaining Time",
+    "updatedToday": "Updated: Today",
+    "processProgress": "Process Progress",
+    "aiSummary": "AI Summary",
+    "file": "File"
   },
   "sidebar": {
-    "claimSummary": "Claim Summary",
-    "claimNo": "Claim No",
-    "policyNo": "Policy No",
-    "insured": "Insured",
-    "incidentDate": "Incident Date",
-    "claimDate": "Claim Date",
-    "incidentType": "Incident Type",
-    "netAmount": "Net Amount",
-    "vehicleInfo": "Vehicle Information",
-    "makeModel": "Make / Model",
-    "year": "Year",
-    "color": "Color",
-    "vin": "VIN (Last 8)",
+    "fileInfo": "File Information",
+    "fileNo": "File No",
+    "process": "Process",
+    "status": "Status",
+    "estimatedTime": "Estimated Time",
     "processSteps": "Process Steps",
-    "assignedAdjuster": "Assigned Adjuster",
-    "registrationNo": "Registration No"
+    "infoMessage": "This data reflects the current process status. You can click on the relevant step for details."
   },
   "timeline": {
     "title": "Process Timeline",
@@ -54,7 +52,23 @@
     "netPayable": "Net Payable",
     "deductionItems": "Deduction Items",
     "deadline": "Deadline",
-    "waitingUpload": "Waiting for Upload"
+    "waitingUpload": "Waiting for Upload",
+    "nodes": {
+      "Towing Service": "Towing Service",
+      "Claim Notification": "Claim Notification",
+      "Appraisal": "Appraisal",
+      "Substitute Rental Vehicle": "Substitute Rental Vehicle",
+      "File Review": "File Review",
+      "Deduction Reason": "Deduction Reason",
+      "Payment Information": "Payment Information",
+      "Closed": "Closed"
+    },
+    "status": {
+      "Completed": "Completed",
+      "Report Completed": "Report Completed",
+      "In Progress": "In Progress",
+      "Pending": "Pending"
+    }
   },
   "analyzer": {
     "reading": "Reading document...",
@@ -62,7 +76,9 @@
     "validating": "Validating official seals...",
     "matching": "Matching with SEDDK regulations...",
     "success": "AI Verification Successful",
-    "finished": "Analysis completed."
+    "finished": "Analysis completed.",
+    "aiSummaryTitle": "AI Agent Analysis Summary",
+    "aiAnalyzing": "All process data is being analyzed..."
   },
   "errors": {
     "dataLoadFailed": "Failed to Load Data",

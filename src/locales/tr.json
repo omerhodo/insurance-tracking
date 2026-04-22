@@ -22,25 +22,23 @@
     "urgentAction": "Acil Aksiyon",
     "urgentDesc": "Aşınma payı hesaplaması için eski poliçe bilgileri bekleniyor.",
     "progressTitle": "Hasar Süreç İlerlemesi",
-    "progressPercent": "%{{percent}} Tamamlandı"
+    "progressPercent": "%{{percent}} Tamamlandı",
+    "currentStatus": "Güncel Durum",
+    "stepProgress": "Adım {{completed}} / {{total}}",
+    "remainingTime": "Kalan Tahmini Süre",
+    "updatedToday": "Güncellenme: Bugün",
+    "processProgress": "Süreç İlerlemesi",
+    "aiSummary": "AI Özeti",
+    "file": "Dosya"
   },
   "sidebar": {
-    "claimSummary": "Hasar Özeti",
-    "claimNo": "Hasar No",
-    "policyNo": "Poliçe No",
-    "insured": "Sigortalı",
-    "incidentDate": "Hasar Tarihi",
-    "claimDate": "Bildirim Tarihi",
-    "incidentType": "Olay Türü",
-    "netAmount": "Net Tutar",
-    "vehicleInfo": "Araç Bilgileri",
-    "makeModel": "Marka / Model",
-    "year": "Yıl",
-    "color": "Renk",
-    "vin": "VIN (Son 8)",
+    "fileInfo": "Dosya Bilgileri",
+    "fileNo": "Dosya No",
+    "process": "Süreç",
+    "status": "Durum",
+    "estimatedTime": "Tahmini Süre",
     "processSteps": "İşlem Adımları",
-    "assignedAdjuster": "Atanan Eksper",
-    "registrationNo": "Kayıt No"
+    "infoMessage": "Bu veriler güncel süreç durumunu yansıtmaktadır. Detaylar için ilgili adıma tıklayabilirsiniz."
   },
   "timeline": {
     "title": "Süreç Zaman Çizelgesi",
@@ -54,7 +52,23 @@
     "netPayable": "Net Ödenecek",
     "deductionItems": "Kesinti Kalemleri",
     "deadline": "Son tarih",
-    "waitingUpload": "Yükleme Bekleniyor"
+    "waitingUpload": "Yükleme Bekleniyor",
+    "nodes": {
+      "Towing Service": "Araç Çekme",
+      "Claim Notification": "Hasar Bildirimi",
+      "Appraisal": "Ekspertiz",
+      "Substitute Rental Vehicle": "İkame Araç",
+      "File Review": "Dosya İnceleme",
+      "Deduction Reason": "Kesinti Nedeni",
+      "Payment Information": "Ödeme Bilgileri",
+      "Closed": "Kapalı"
+    },
+    "status": {
+      "Completed": "Tamamlandı",
+      "Report Completed": "Rapor Tamamlandı",
+      "In Progress": "Devam Ediyor",
+      "Pending": "Beklemede"
+    }
   },
   "analyzer": {
     "reading": "Belge okunuyor...",
@@ -62,7 +76,9 @@
     "validating": "Resmi mühürler doğrulanıyor...",
     "matching": "SEDDK yönetmelikleriyle eşleştiriliyor...",
     "success": "AI Doğrulaması Başarılı",
-    "finished": "Analiz tamamlandı."
+    "finished": "Analiz tamamlandı.",
+    "aiSummaryTitle": "AI Agent Analiz Özeti",
+    "aiAnalyzing": "Tüm süreç verileri analiz ediliyor..."
   },
   "errors": {
     "dataLoadFailed": "Veri Yüklenemedi",

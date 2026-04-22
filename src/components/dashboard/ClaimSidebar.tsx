@@ -11,6 +11,7 @@ import {
   Info
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 import { STATUS_CONFIG } from "@/components/timeline/shared/status-config";
 import type { Claim, ProcessNode, ProcessStatus } from "@/lib/schemas/claim";
 
@@ -74,6 +75,8 @@ function InfoRow({
 // ─── Mini step indicator ──────────────────────────────────────────────────────
 
 function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
+  const { t } = useTranslation();
+  
   const StatusDot = () => {
     switch (node.status as ProcessStatus) {
       case "Completed":
@@ -111,7 +114,7 @@ function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
               : "text-muted-foreground"
         )}
       >
-        {node.title}
+        {t(`timeline.nodes.${node.title}`)}
       </span>
       {node.status === "In Progress" && (
         <ChevronRight className="h-3 w-3 text-amber-400/60 shrink-0" />
@@ -127,21 +130,23 @@ interface ClaimSidebarProps {
 }
 
 export function ClaimSidebar({ claim }: ClaimSidebarProps) {
+  const { t } = useTranslation();
+
   return (
     <aside className="flex flex-col gap-4">
       {/* ── Claim summary ──────────────────────────────────────────────────── */}
-      <SidebarCard title="Dosya Bilgileri" icon={<Hash className="h-3.5 w-3.5" />}>
+      <SidebarCard title={t("sidebar.fileInfo")} icon={<Hash className="h-3.5 w-3.5" />}>
         <div className="space-y-0">
-          <InfoRow label="Dosya No" value={claim.fileNo} mono />
-          <InfoRow label="Süreç" value={claim.title} />
-          <InfoRow label="Durum" value={claim.currentStatus} />
-          <InfoRow label="Tahmini Süre" value={claim.estimatedRemainingTime} />
+          <InfoRow label={t("sidebar.fileNo")} value={claim.fileNo} mono />
+          <InfoRow label={t("sidebar.process")} value={t("hero.title")} />
+          <InfoRow label={t("sidebar.status")} value={t(`timeline.status.${claim.currentStatus}`)} />
+          <InfoRow label={t("sidebar.estimatedTime")} value={claim.estimatedRemainingTime} />
         </div>
       </SidebarCard>
 
       {/* ── Process steps mini ──────────────────────────────────────────────── */}
       <SidebarCard
-        title="İşlem Adımları"
+        title={t("sidebar.processSteps")}
         icon={<ShieldAlert className="h-3.5 w-3.5" />}
       >
         <div className="space-y-0.5">
@@ -155,7 +160,7 @@ export function ClaimSidebar({ claim }: ClaimSidebarProps) {
       <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 px-4 py-3 flex items-start gap-3">
         <Info className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
         <p className="text-xs text-blue-400/80 leading-relaxed">
-          Bu veriler güncel süreç durumunu yansıtmaktadır. Detaylar için ilgili adıma tıklayabilirsiniz.
+          {t("sidebar.infoMessage")}
         </p>
       </div>
     </aside>

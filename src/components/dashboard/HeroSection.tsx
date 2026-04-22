@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { AiSummaryModal } from "./AiSummaryModal";
 import type { Claim } from "@/lib/schemas/claim";
@@ -62,6 +63,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ claim }: HeroSectionProps) {
+  const { t } = useTranslation();
   const completedSteps = claim.processDetails.filter(
     (s) => s.status.includes("Completed")
   ).length;
@@ -96,7 +98,7 @@ export function HeroSection({ claim }: HeroSectionProps) {
             MiOX Sigorta · Hasar Takip Merkezi
           </p>
           <h1 className="text-xl font-bold text-foreground leading-tight">
-            {claim.title}
+            {t("hero.title")}
           </h1>
         </div>
 
@@ -107,7 +109,7 @@ export function HeroSection({ claim }: HeroSectionProps) {
             variant="outline"
             className="font-mono text-[11px] border-primary/25 text-primary bg-primary/5"
           >
-            Dosya: {claim.fileNo}
+            {t("hero.file")}: {claim.fileNo}
           </Badge>
 
           <AiSummaryModal claim={claim} />
@@ -118,31 +120,31 @@ export function HeroSection({ claim }: HeroSectionProps) {
       <div className="relative px-5 py-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
         {/* Status */}
         <MetricCard
-          label="Güncel Durum"
+          label={t("hero.currentStatus")}
           className="border border-blue-500/30 bg-blue-500/10"
           icon={<Activity className="h-3.5 w-3.5" />}
           value={
             <span className="text-base font-extrabold text-blue-400">
-              {claim.currentStatus}
+              {t(`timeline.status.${claim.currentStatus}`)}
             </span>
           }
-          subValue={`Adım ${completedSteps} / ${totalSteps}`}
+          subValue={t("hero.stepProgress", { completed: completedSteps, total: totalSteps })}
         />
 
         {/* ETA */}
         <MetricCard
-          label="Kalan Tahmini Süre"
+          label={t("hero.remainingTime")}
           icon={<Clock className="h-3.5 w-3.5" />}
           value={claim.estimatedRemainingTime}
-          subValue="Güncellenme: Bugün"
+          subValue={t("hero.updatedToday")}
         />
 
         {/* Progress */}
         <MetricCard
-          label="Süreç İlerlemesi"
+          label={t("hero.processProgress")}
           icon={<CheckCircle2 className="h-3.5 w-3.5" />}
           value={<span className="font-mono text-base">%{progressPercent}</span>}
-          subValue={`${completedSteps} adım tamamlandı`}
+          subValue={t("hero.stepProgress", { completed: completedSteps, total: totalSteps })}
         />
       </div>
 
@@ -150,7 +152,7 @@ export function HeroSection({ claim }: HeroSectionProps) {
       <div className="relative px-5 pb-5">
         <div className="flex justify-between items-center mb-2">
           <span className="text-[11px] text-muted-foreground font-medium">
-            İşlem İlerlemesi
+            {t("hero.processProgress")}
           </span>
         </div>
         <div className="relative h-2 w-full rounded-full bg-muted/60 overflow-hidden">

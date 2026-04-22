@@ -10,25 +10,32 @@ import {
 import type { Claim } from "@/lib/schemas/claim";
 import { BrainCircuit, Loader2, Sparkles } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { generateAiSummary } from "@/actions/ai-actions";
 
 interface Props {
   claim: Claim;
 }
 
 export function AiSummaryModal({ claim }: Props) {
+  const { t, i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [summary, setSummary] = useState<string | null>(null);
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setIsOpen(true);
     if (!summary) {
       setIsGenerating(true);
-      // Simulate AI generation time
-      setTimeout(() => {
+      try {
+        const result = await generateAiSummary(claim, i18n.language);
+        setSummary(result);
+      } catch (error) {
+        console.error("AI Summary generation failed:", error);
+        setSummary(t("errors.serverError"));
+      } finally {
         setIsGenerating(false);
-        setSummary(generateMockSummary(claim));
-      }, 2000);
+      }
     }
   };
 
@@ -39,7 +46,7 @@ export function AiSummaryModal({ claim }: Props) {
         className="gap-2 bg-gradient-to-r from-blue-600 to-blue-600 hover:from-blue-700 hover:to-blue-700 text-white border-0 shadow-lg shadow-blue-500/20"
       >
         <Sparkles className="h-4 w-4" />
-        AI Özeti
+        {t("hero.aiSummary")}
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -47,7 +54,7 @@ export function AiSummaryModal({ claim }: Props) {
           <DialogHeader className="pb-4 border-b border-border/40">
             <DialogTitle className="flex items-center gap-2 text-xl font-bold bg-gradient-to-r from-blue-400 to-blue-400 bg-clip-text text-transparent">
               <BrainCircuit className="h-6 w-6 text-blue-400" />
-              AI Agent Analiz Özeti
+              {t("analyzer.aiSummaryTitle")}
             </DialogTitle>
           </DialogHeader>
 
@@ -59,7 +66,7 @@ export function AiSummaryModal({ claim }: Props) {
                   <Loader2 className="h-10 w-10 text-blue-500 animate-spin relative z-10" />
                 </div>
                 <p className="text-sm font-medium text-muted-foreground animate-pulse">
-                  Tüm süreç verileri analiz ediliyor...
+                  {t("analyzer.aiAnalyzing")}
                 </p>
               </div>
             ) : (
@@ -80,19 +87,3 @@ export function AiSummaryModal({ claim }: Props) {
   );
 }
 
-function generateMockSummary(claim: Claim) {
-  const completedSteps = claim.processDetails.filter(s => s.status.includes("Completed")).length;
-  const pendingSteps = claim.processDetails.filter(s => s.status === "Pending").length;
-
-  return `Dosya No ${claim.fileNo} numaralı ${claim.title} detaylı bir şekilde incelenmiştir. Mevcut duruma göre süreç "${claim.currentStatus}" aşamasında olup tahmini tamamlanma süresi ${claim.estimatedRemainingTime} olarak öngörülmektedir.
-
-Önemli Bulgular:
-• Toplam ${claim.processDetails.length} işlem adımının ${completedSteps} tanesi tamamlanmıştır.
-• Araç çekimi, hasar bildirimi ve ikame araç tahsisi gibi ilk aşamalar sorunsuz bir şekilde sonuçlanmıştır.
-• Ekspertiz raporu tamamlanmış olup, dosya inceleme aşaması devam etmektedir.
-• Kesinti nedeni olarak "Mesleki Belge Yüklemesi" beklenmektedir. Bu belge yüklendikten sonra kesinti ve ödeme onay adımlarına geçilebilecektir.
-• Ödeme bilgileri ve dosyanın kapanması için bekleyen ${pendingSteps} adım bulunmaktadır.
-
-Tavsiye:
-Sürecin hızlanması için acil eylem gerektiren eksik belgelerin (Mesleki Belge) sisteme yüklenmesi gerekmektedir. Ödeme işlemi, kesinti onayının ardından gerçekleştirilecektir.`;
-}
