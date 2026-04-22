@@ -1,28 +1,46 @@
-/**
- * Root page — serves as the dashboard entry point.
- * Phase 4 will replace this with the full dashboard UI.
- */
-export default function HomePage() {
+"use client";
+
+import { useClaimData } from "@/hooks/use-claim-data";
+import { Timeline } from "@/components/timeline";
+import { Skeleton } from "@/components/ui/skeleton";
+
+function TimelineSkeleton() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 p-8">
-      <div className="text-center space-y-3">
-        <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-          MiOX Insurance Technologies
+    <div className="space-y-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="flex gap-4">
+          <Skeleton className="h-10 w-10 rounded-full shrink-0" />
+          <Skeleton className="h-32 flex-1 rounded-xl" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const { data, isLoading, isError, error } = useClaimData();
+
+  return (
+    <main className="min-h-screen p-6 md:p-10 max-w-3xl mx-auto">
+      <div className="mb-8 space-y-1">
+        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+          MiOX — Phase 3 Preview
         </p>
-        <h1 className="text-4xl font-bold tracking-tight ai-gradient-text">
+        <h1 className="text-2xl font-bold ai-gradient-text">
           AI-Powered Claim Orchestrator
         </h1>
-        <p className="text-muted-foreground max-w-md">
-          Phase 1 complete — project scaffolded, design system ready.
-          <br />
-          Awaiting Phase 2 approval.
-        </p>
+        {data && (
+          <p className="text-sm text-muted-foreground">
+            {data.claimId} · {data.insuredName} · {data.vehiclePlate}
+          </p>
+        )}
       </div>
 
-      <div className="glass rounded-2xl px-6 py-4 text-sm text-muted-foreground ai-glow-ring">
-        ✅ Next.js · TypeScript · Tailwind v4 · shadcn/ui · TanStack Query ·
-        Zustand · Zod
-      </div>
+      {isLoading && <TimelineSkeleton />}
+      {isError && (
+        <p className="text-red-400 text-sm">Hata: {error.message}</p>
+      )}
+      {data && <Timeline nodes={data.processDetails} />}
     </main>
   );
 }
