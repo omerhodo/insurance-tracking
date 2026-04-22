@@ -71,7 +71,8 @@
       "Completed": "Completed",
       "Report Completed": "Report Completed",
       "In Progress": "In Progress",
-      "Pending": "Pending"
+      "Pending": "Pending",
+      "File Review Process Continues": "File Review Process Continues"
     },
     "labels": {
       "pickupLocation": "Pickup Location",

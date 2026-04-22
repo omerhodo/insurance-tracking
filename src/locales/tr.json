@@ -71,7 +71,8 @@
       "Completed": "Tamamlandı",
       "Report Completed": "Rapor Tamamlandı",
       "In Progress": "Devam Ediyor",
-      "Pending": "Beklemede"
+      "Pending": "Beklemede",
+      "File Review Process Continues": "Dosya İnceleme Süreci Devam Ediyor"
     },
     "labels": {
       "pickupLocation": "Alış Konumu",
