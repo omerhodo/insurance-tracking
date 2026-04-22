@@ -72,6 +72,8 @@
       "Report Completed": "Report Completed",
       "In Progress": "In Progress",
       "Pending": "Pending",
+      "File": "File",
+      "File Review": "File Review",
       "File Review Process Continues": "File Review Process Continues"
     },
     "labels": {

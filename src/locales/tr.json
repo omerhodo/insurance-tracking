@@ -72,6 +72,8 @@
       "Report Completed": "Rapor Tamamlandı",
       "In Progress": "Devam Ediyor",
       "Pending": "Beklemede",
+      "File": "Dosya",
+      "File Review": "Dosya İnceleme",
       "File Review Process Continues": "Dosya İnceleme Süreci Devam Ediyor"
     },
     "labels": {
