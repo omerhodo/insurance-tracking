@@ -1,46 +1,114 @@
 "use client";
 
-import { useClaimData } from "@/hooks/use-claim-data";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useClaimData, CLAIM_QUERY_KEY } from "@/hooks/use-claim-data";
+import { useQueryClient } from "@tanstack/react-query";
+import { HeroSection } from "@/components/dashboard/HeroSection";
+import { ClaimSidebar } from "@/components/dashboard/ClaimSidebar";
+import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
 import { Timeline } from "@/components/timeline";
-import { Skeleton } from "@/components/ui/skeleton";
 
-function TimelineSkeleton() {
+// ─── Error state ──────────────────────────────────────────────────────────────
+
+function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
   return (
-    <div className="space-y-4">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="flex gap-4">
-          <Skeleton className="h-10 w-10 rounded-full shrink-0" />
-          <Skeleton className="h-32 flex-1 rounded-xl" />
-        </div>
-      ))}
+    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-5 text-center px-4">
+      <div className="flex items-center justify-center h-16 w-16 rounded-full bg-red-500/10 border border-red-500/20">
+        <AlertTriangle className="h-8 w-8 text-red-400" />
+      </div>
+      <div className="space-y-1">
+        <h2 className="text-lg font-semibold text-foreground">Veri Yüklenemedi</h2>
+        <p className="text-sm text-muted-foreground max-w-sm">{message}</p>
+      </div>
+      <Button
+        id="retry-btn"
+        onClick={onRetry}
+        variant="outline"
+        className="gap-2"
+      >
+        <RefreshCw className="h-4 w-4" />
+        Tekrar Dene
+      </Button>
     </div>
   );
 }
 
+// ─── Page ─────────────────────────────────────────────────────────────────────
+
 export default function HomePage() {
-  const { data, isLoading, isError, error } = useClaimData();
+  const { data: claim, isLoading, isError, error } = useClaimData();
+  const queryClient = useQueryClient();
+
+  const handleRetry = () => {
+    queryClient.invalidateQueries({ queryKey: CLAIM_QUERY_KEY });
+  };
 
   return (
-    <main className="min-h-screen p-6 md:p-10 max-w-3xl mx-auto">
-      <div className="mb-8 space-y-1">
-        <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-          MiOX — Phase 3 Preview
-        </p>
-        <h1 className="text-2xl font-bold ai-gradient-text">
-          AI-Powered Claim Orchestrator
-        </h1>
-        {data && (
-          <p className="text-sm text-muted-foreground">
-            {data.claimId} · {data.insuredName} · {data.vehiclePlate}
-          </p>
+    /*
+     * Outermost shell: full-viewport height, subtle radial gradient
+     * to give depth to the dark background.
+     */
+    <div
+      className="min-h-screen"
+      style={{
+        background:
+          "radial-gradient(ellipse 80% 50% at 50% -10%, oklch(0.3 0.08 265 / 0.35), transparent)",
+      }}
+    >
+      {/* ── Content container ─── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+
+        {/* Loading */}
+        {isLoading && <DashboardSkeleton />}
+
+        {/* Error */}
+        {isError && (
+          <ErrorState
+            message={error?.message ?? "Sunucuya bağlanılamadı."}
+            onRetry={handleRetry}
+          />
+        )}
+
+        {/* Success */}
+        {claim && (
+          <div className="space-y-6">
+            {/* ── Hero section ── full width ─────────────────────────────── */}
+            <HeroSection claim={claim} />
+
+            {/*
+             * ── Content grid ───────────────────────────────────────────────
+             * Mobile  (< lg): single column — timeline then sidebar
+             * Desktop (≥ lg): two columns — timeline (flexible) | sidebar (340px, sticky)
+             */}
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 items-start">
+
+              {/* ── Timeline panel ─────────────────────────────────────────── */}
+              <main id="claim-timeline" aria-label="Hasar süreç zaman çizelgesi">
+                <div className="flex items-center gap-2 mb-5">
+                  <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+                    Süreç Zaman Çizelgesi
+                  </h2>
+                  <div className="flex-1 h-px bg-border/40" />
+                  <span className="text-xs text-muted-foreground">
+                    {claim.processDetails.filter((s) => s.status === "COMPLETED").length}
+                    {" / "}
+                    {claim.processDetails.length} tamamlandı
+                  </span>
+                </div>
+
+                <Timeline nodes={claim.processDetails} />
+              </main>
+
+              {/* ── Sidebar panel ──────────────────────────────────────────── */}
+              <div className="lg:sticky lg:top-6 lg:self-start" aria-label="Hasar özet paneli">
+                <ClaimSidebar claim={claim} />
+              </div>
+
+            </div>
+          </div>
         )}
       </div>
-
-      {isLoading && <TimelineSkeleton />}
-      {isError && (
-        <p className="text-red-400 text-sm">Hata: {error.message}</p>
-      )}
-      {data && <Timeline nodes={data.processDetails} />}
-    </main>
+    </div>
   );
 }
