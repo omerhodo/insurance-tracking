@@ -1,15 +1,15 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Globe } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import { Globe } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function LanguageSwitcher() {
   const { i18n } = useTranslation();
@@ -36,7 +36,7 @@ export function LanguageSwitcher() {
         )}
       >
         <Globe className="h-3.5 w-3.5 text-muted-foreground" />
-        {i18n.language.toUpperCase()}
+        {i18n.language.toLocaleUpperCase()}
       </PopoverTrigger>
       <PopoverContent className="w-32 p-1" align="end" sideOffset={8}>
         <div className="flex flex-col gap-1">
