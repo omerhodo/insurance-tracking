@@ -1,22 +1,16 @@
 "use client";
 
 import {
-  Car,
-  Phone,
-  Mail,
   Hash,
-  CalendarDays,
   ShieldAlert,
   CheckCircle2,
   Clock,
   Loader2,
   AlertCircle,
   ChevronRight,
+  Info
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { formatCurrency, formatDate, formatDateOnly } from "@/lib/formatters";
 import { STATUS_CONFIG } from "@/components/timeline/shared/status-config";
 import type { Claim, ProcessNode, ProcessStatus } from "@/lib/schemas/claim";
 
@@ -80,19 +74,18 @@ function InfoRow({
 // ─── Mini step indicator ──────────────────────────────────────────────────────
 
 function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
-  const cfg = STATUS_CONFIG[node.status];
-
   const StatusDot = () => {
     switch (node.status as ProcessStatus) {
-      case "COMPLETED":
+      case "Completed":
+      case "Report Completed":
         return <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />;
-      case "IN_PROGRESS":
+      case "In Progress":
         return (
           <Loader2 className="h-4 w-4 text-amber-400 animate-spin shrink-0" />
         );
-      case "PENDING":
+      case "Pending":
         return <Clock className="h-4 w-4 text-slate-400 shrink-0" />;
-      case "REJECTED":
+      default:
         return <AlertCircle className="h-4 w-4 text-red-400 shrink-0" />;
     }
   };
@@ -101,7 +94,7 @@ function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
     <div
       className={cn(
         "flex items-center gap-3 py-2 px-2 rounded-lg transition-colors",
-        node.status === "IN_PROGRESS" && "bg-amber-500/8"
+        node.status === "In Progress" && "bg-amber-500/8"
       )}
     >
       <span className="text-[10px] font-bold text-muted-foreground/60 tabular-nums w-4 shrink-0">
@@ -111,16 +104,16 @@ function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
       <span
         className={cn(
           "text-xs flex-1 leading-tight",
-          node.status === "IN_PROGRESS"
+          node.status === "In Progress"
             ? "font-semibold text-amber-300"
-            : node.status === "COMPLETED"
+            : node.status === "Completed" || node.status === "Report Completed"
               ? "text-muted-foreground line-through decoration-muted-foreground/40"
               : "text-muted-foreground"
         )}
       >
         {node.title}
       </span>
-      {node.status === "IN_PROGRESS" && (
+      {node.status === "In Progress" && (
         <ChevronRight className="h-3 w-3 text-amber-400/60 shrink-0" />
       )}
     </div>
@@ -134,73 +127,15 @@ interface ClaimSidebarProps {
 }
 
 export function ClaimSidebar({ claim }: ClaimSidebarProps) {
-  const vehicle = claim.vehicleInfo;
-
-  // Extract adjuster from FILE_REVIEW step (type-safe narrowing)
-  const fileReview = claim.processDetails.find((s) => s.type === "FILE_REVIEW");
-  const adjuster =
-    fileReview?.type === "FILE_REVIEW" ? fileReview.details : null;
-
   return (
     <aside className="flex flex-col gap-4">
       {/* ── Claim summary ──────────────────────────────────────────────────── */}
-      <SidebarCard title="Hasar Özeti" icon={<Hash className="h-3.5 w-3.5" />}>
+      <SidebarCard title="Dosya Bilgileri" icon={<Hash className="h-3.5 w-3.5" />}>
         <div className="space-y-0">
-          <InfoRow label="Hasar No" value={claim.claimId} mono />
-          <InfoRow label="Poliçe No" value={claim.policyNumber} mono />
-          <InfoRow label="Sigortalı" value={claim.insuredName} />
-          <InfoRow
-            label="Hasar Tarihi"
-            value={formatDateOnly(claim.incidentDate)}
-          />
-          <InfoRow
-            label="Bildirim Tarihi"
-            value={formatDateOnly(claim.claimDate)}
-          />
-          <InfoRow label="Olay Türü" value={claim.incidentType} />
-          <InfoRow
-            label="Net Tutar"
-            value={
-              <span className="text-primary font-bold">
-                {formatCurrency(claim.totalEstimatedDamage, claim.currency)}
-              </span>
-            }
-          />
-        </div>
-      </SidebarCard>
-
-      {/* ── Vehicle info ────────────────────────────────────────────────────── */}
-      <SidebarCard
-        title="Araç Bilgileri"
-        icon={<Car className="h-3.5 w-3.5" />}
-      >
-        <div className="flex items-center gap-3 mb-3 p-2.5 rounded-lg bg-muted/40">
-          <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 shrink-0">
-            <Car className="h-5 w-5 text-primary" />
-          </div>
-          <div>
-            <p className="text-sm font-bold text-foreground">
-              {vehicle.make} {vehicle.model}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {vehicle.year} · {vehicle.color}
-            </p>
-          </div>
-          <Badge
-            variant="outline"
-            className="ml-auto text-[11px] font-mono border-border/40"
-          >
-            {claim.vehiclePlate}
-          </Badge>
-        </div>
-        <div className="space-y-0">
-          <InfoRow
-            label="Marka / Model"
-            value={`${vehicle.make} ${vehicle.model}`}
-          />
-          <InfoRow label="Yıl" value={String(vehicle.year)} />
-          <InfoRow label="Renk" value={vehicle.color} />
-          <InfoRow label="VIN (Son 8)" value={vehicle.vin.slice(-8)} mono />
+          <InfoRow label="Dosya No" value={claim.fileNo} mono />
+          <InfoRow label="Süreç" value={claim.title} />
+          <InfoRow label="Durum" value={claim.currentStatus} />
+          <InfoRow label="Tahmini Süre" value={claim.estimatedRemainingTime} />
         </div>
       </SidebarCard>
 
@@ -211,42 +146,18 @@ export function ClaimSidebar({ claim }: ClaimSidebarProps) {
       >
         <div className="space-y-0.5">
           {claim.processDetails.map((node, idx) => (
-            <MiniStep key={node.id} node={node} index={idx} />
+            <MiniStep key={node.id || idx} node={node} index={idx} />
           ))}
         </div>
       </SidebarCard>
-
-      {/* ── Assigned adjuster ───────────────────────────────────────────────── */}
-      {adjuster && (
-        <SidebarCard
-          title="Atanan Eksper"
-          icon={<Phone className="h-3.5 w-3.5" />}
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-primary/10 text-primary text-sm font-bold shrink-0">
-              {adjuster.assignedAdjuster
-                .split(" ")
-                .slice(0, 2)
-                .map((w) => w[0])
-                .join("")}
-            </div>
-            <div className="min-w-0">
-              <p className="text-sm font-semibold text-foreground">
-                {adjuster.assignedAdjuster}
-              </p>
-              <a
-                href={`mailto:${adjuster.adjusterEmail}`}
-                className="flex items-center gap-1 text-xs text-primary hover:underline mt-0.5 truncate"
-              >
-                <Mail className="h-3 w-3 shrink-0" />
-                {adjuster.adjusterEmail}
-              </a>
-            </div>
-          </div>
-          <Separator className="my-3 opacity-40" />
-          <InfoRow label="Kayıt No" value={adjuster.registrationNumber} mono />
-        </SidebarCard>
-      )}
+      
+      {/* ── Info message ─────────────────────────────────────────────────────── */}
+      <div className="rounded-xl border border-blue-500/30 bg-blue-500/5 px-4 py-3 flex items-start gap-3">
+        <Info className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
+        <p className="text-xs text-blue-400/80 leading-relaxed">
+          Bu veriler güncel süreç durumunu yansıtmaktadır. Detaylar için ilgili adıma tıklayabilirsiniz.
+        </p>
+      </div>
     </aside>
   );
 }

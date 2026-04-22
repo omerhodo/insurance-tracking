@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import type { DocumentStatus } from "@/lib/schemas/claim";
+// removed DocumentStatus import
 
 // ─── Custom Node Types ────────────────────────────────────────────────────────
 
@@ -39,7 +39,7 @@ export interface AiAnalyzerState {
   /** Error message from a failed simulated analysis */
   errorMessage: string | null;
   /** Override for the document status after a successful analysis */
-  resolvedDocumentStatus: DocumentStatus | null;
+  resolvedDocumentStatus: string | null;
 }
 
 // ─── Store shape ──────────────────────────────────────────────────────────────
@@ -88,7 +88,7 @@ interface ClaimActions {
   startAnalysis: () => void;
 
   /** Mark analysis as successful. */
-  resolveAnalysis: (documentStatus: DocumentStatus) => void;
+  resolveAnalysis: (documentStatus: string) => void;
 
   /** Mark analysis as failed. */
   failAnalysis: (errorMessage: string) => void;

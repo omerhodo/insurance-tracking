@@ -6,8 +6,10 @@ export { STATUS_CONFIG } from "./shared/status-config";
 export { TimelineNode } from "./TimelineNode";
 
 export { AppraisalNode } from "./nodes/AppraisalNode";
-export { CoverageCheckNode } from "./nodes/CoverageCheckNode";
+export { ClaimNotificationNode } from "./nodes/ClaimNotificationNode";
+export { ClosedNode } from "./nodes/ClosedNode";
 export { DeductionReasonNode } from "./nodes/DeductionReasonNode";
 export { FileReviewNode } from "./nodes/FileReviewNode";
-export { PaymentNode } from "./nodes/PaymentNode";
+export { PaymentInformationNode } from "./nodes/PaymentInformationNode";
+export { SubstituteRentalVehicleNode } from "./nodes/SubstituteRentalVehicleNode";
 export { TowingServiceNode } from "./nodes/TowingServiceNode";

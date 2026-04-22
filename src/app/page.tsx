@@ -101,8 +101,8 @@ export default function HomePage() {
                   <div className="flex-1 h-px bg-border/40" />
                   <span className="text-xs text-muted-foreground">
                     {
-                      claim.processDetails.filter(
-                        (s) => s.status === "COMPLETED"
+                      claim.processDetails.filter((s) =>
+                        s.status.includes("Completed")
                       ).length
                     }
                     {" / "}

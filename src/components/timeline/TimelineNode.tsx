@@ -2,11 +2,19 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { NodeIcon } from "./shared/icon-map";
 import { AiExplainButton } from "./shared/ai-explain-button";
 import { STATUS_CONFIG } from "./shared/status-config";
-import { formatDate } from "@/lib/formatters";
 import { CheckCircle2, Clock, Loader2, AlertCircle } from "lucide-react";
+import {
+  Truck,
+  FileText,
+  ClipboardList,
+  Car,
+  FolderOpen,
+  Calculator,
+  Banknote,
+  CheckCircle,
+} from "lucide-react";
 import type { ProcessNode, ProcessStatus } from "@/lib/schemas/claim";
 import type { ReactNode } from "react";
 
@@ -15,14 +23,38 @@ import type { ReactNode } from "react";
 function StatusIcon({ status }: { status: ProcessStatus }) {
   const cls = "h-3.5 w-3.5";
   switch (status) {
-    case "COMPLETED":
+    case "Completed":
+    case "Report Completed":
       return <CheckCircle2 className={cn(cls, "text-green-500")} />;
-    case "IN_PROGRESS":
+    case "In Progress":
       return <Loader2 className={cn(cls, "text-amber-400 animate-spin")} />;
-    case "PENDING":
+    case "Pending":
       return <Clock className={cn(cls, "text-slate-400")} />;
-    case "REJECTED":
-      return <AlertCircle className={cn(cls, "text-red-400")} />;
+    default:
+      return <Clock className={cn(cls, "text-slate-400")} />;
+  }
+}
+
+function getIconForTitle(title: string) {
+  switch (title) {
+    case "Towing Service":
+      return <Truck className="h-5 w-5 text-muted-foreground" />;
+    case "Claim Notification":
+      return <FileText className="h-5 w-5 text-muted-foreground" />;
+    case "Appraisal":
+      return <ClipboardList className="h-5 w-5 text-muted-foreground" />;
+    case "Substitute Rental Vehicle":
+      return <Car className="h-5 w-5 text-muted-foreground" />;
+    case "File Review":
+      return <FolderOpen className="h-5 w-5 text-muted-foreground" />;
+    case "Deduction Reason":
+      return <Calculator className="h-5 w-5 text-muted-foreground" />;
+    case "Payment Information":
+      return <Banknote className="h-5 w-5 text-muted-foreground" />;
+    case "Closed":
+      return <CheckCircle className="h-5 w-5 text-muted-foreground" />;
+    default:
+      return <FileText className="h-5 w-5 text-muted-foreground" />;
   }
 }
 
@@ -38,21 +70,20 @@ interface TimelineNodeProps {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-/**
- * Generic timeline node wrapper.
- *
- * Renders:
- * - Vertical connector line (hidden on last node)
- * - Status-coloured icon circle
- * - Card header: title, status badge, completedAt, AI explain button
- * - Card body: children (node-specific content)
- */
 export function TimelineNode({
   node,
   children,
   isLast = false,
 }: TimelineNodeProps) {
-  const cfg = STATUS_CONFIG[node.status];
+  const cfg = STATUS_CONFIG[node.status] || {
+    label: node.status,
+    iconColorClass: "text-slate-400",
+    iconBgClass: "bg-slate-500/10",
+    borderClass: "border-slate-500/30",
+    badgeClass: "border-slate-500/30 text-slate-400 bg-slate-500/10",
+    dotClass: "bg-slate-400",
+    connectorClass: "bg-slate-500/20",
+  };
 
   return (
     <div className="relative flex gap-4 group" id={`timeline-node-${node.id}`}>
@@ -78,10 +109,7 @@ export function TimelineNode({
             cfg.iconBgClass
           )}
         >
-          <NodeIcon
-            slug={node.icon}
-            className={cn("h-5 w-5", cfg.iconColorClass)}
-          />
+          {getIconForTitle(node.title)}
 
           {/* Status pulse dot */}
           <span
@@ -123,18 +151,12 @@ export function TimelineNode({
                 <span className="ml-1">{cfg.label}</span>
               </Badge>
             </div>
-
-            {node.completedAt && (
-              <p className="text-[11px] text-muted-foreground">
-                {formatDate(node.completedAt)}
-              </p>
-            )}
           </div>
 
           {/* AI Explain button */}
           <AiExplainButton
-            stepId={node.id}
-            nodeType={node.type}
+            stepId={node.id!}
+            nodeType={node.title}
             className="shrink-0"
           />
         </div>
