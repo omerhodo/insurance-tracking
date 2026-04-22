@@ -189,7 +189,7 @@
   button,
   [role="button"],
   a {
-    @apply min-h-[44px] min-w-[44px];
+    @apply min-h-[44px] min-w-[44px] cursor-pointer;
   }
 }
 
