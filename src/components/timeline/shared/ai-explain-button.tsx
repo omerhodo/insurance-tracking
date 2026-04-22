@@ -34,24 +34,33 @@ export function AiExplainButton({
 
   const [loading, setLoading] = useState(false);
   const [explanation, setExplanation] = useState<string | null>(null);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    if (isOpen && !explanation && !loading) {
+    // If popover is opened and we have an error, reset to allow retry
+    if (isOpen && isError) {
+      setExplanation(null);
+      setIsError(false);
+    }
+
+    if (isOpen && !explanation && !loading && !isError) {
       const fetchExplanation = async () => {
         setLoading(true);
         try {
           const result = await explainTimelineStep(step, i18n.language);
           setExplanation(result);
+          setIsError(false);
         } catch (error) {
           console.error("AI Explanation Error:", error);
           setExplanation(t("timeline.aiError"));
+          setIsError(true);
         } finally {
           setLoading(false);
         }
       };
       fetchExplanation();
     }
-  }, [isOpen, explanation, loading, step, i18n.language, t]);
+  }, [isOpen, explanation, loading, isError, step, i18n.language, t]);
 
   const title = t(`timeline.nodes.${step.title}`);
 
