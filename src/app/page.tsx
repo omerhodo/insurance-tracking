@@ -4,6 +4,7 @@ import { AlertTriangle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useClaimData, CLAIM_QUERY_KEY } from "@/hooks/use-claim-data";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 import { HeroSection } from "@/components/dashboard/HeroSection";
 import { ClaimSidebar } from "@/components/dashboard/ClaimSidebar";
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
@@ -18,6 +19,7 @@ function ErrorState({
   message: string;
   onRetry: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-5 text-center px-4">
       <div className="flex items-center justify-center h-16 w-16 rounded-full bg-red-500/10 border border-red-500/20">
@@ -25,7 +27,7 @@ function ErrorState({
       </div>
       <div className="space-y-1">
         <h2 className="text-lg font-semibold text-foreground">
-          Veri Yüklenemedi
+          {t("errors.dataLoadFailed")}
         </h2>
         <p className="text-sm text-muted-foreground max-w-sm">{message}</p>
       </div>
@@ -36,7 +38,7 @@ function ErrorState({
         className="gap-2"
       >
         <RefreshCw className="h-4 w-4" />
-        Tekrar Dene
+        {t("common.retry")}
       </Button>
     </div>
   );
@@ -45,6 +47,7 @@ function ErrorState({
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function HomePage() {
+  const { t } = useTranslation();
   const { data: claim, isLoading, isError, error } = useClaimData();
   const queryClient = useQueryClient();
 
@@ -72,7 +75,7 @@ export default function HomePage() {
         {/* Error */}
         {isError && (
           <ErrorState
-            message={error?.message ?? "Sunucuya bağlanılamadı."}
+            message={error?.message ?? t("errors.serverError")}
             onRetry={handleRetry}
           />
         )}
@@ -96,17 +99,16 @@ export default function HomePage() {
               >
                 <div className="flex items-center gap-2 mb-5">
                   <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
-                    Süreç Zaman Çizelgesi
+                    {t("timeline.title")}
                   </h2>
                   <div className="flex-1 h-px bg-border/40" />
                   <span className="text-xs text-muted-foreground">
-                    {
-                      claim.processDetails.filter((s) =>
+                    {t("timeline.completion", {
+                      completed: claim.processDetails.filter((s) =>
                         s.status.includes("Completed")
-                      ).length
-                    }
-                    {" / "}
-                    {claim.processDetails.length} tamamlandı
+                      ).length,
+                      total: claim.processDetails.length,
+                    })}
                   </span>
                 </div>
 

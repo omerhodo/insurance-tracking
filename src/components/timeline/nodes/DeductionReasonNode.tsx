@@ -3,6 +3,7 @@
 import { AlertTriangle, Calculator, FileText } from "lucide-react";
 import { TimelineNode } from "@/components/timeline/TimelineNode";
 import { AiDocumentAnalyzer } from "../AiDocumentAnalyzer";
+import { useTranslation } from "react-i18next";
 import type { DeductionReasonNode as TDeductionReasonNode } from "@/lib/schemas/claim";
 
 interface Props {
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export function DeductionReasonNode({ node, isLast }: Props) {
+  const { t } = useTranslation();
+
   return (
     <TimelineNode node={node} isLast={isLast}>
       <div className="space-y-4">
@@ -19,7 +22,7 @@ export function DeductionReasonNode({ node, isLast }: Props) {
             <AlertTriangle className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
             <div>
               <p className="text-sm font-semibold text-amber-600 dark:text-amber-400">
-                Action Required
+                {t("timeline.labels.actionRequired")}
               </p>
               <p className="text-sm text-amber-600/80 dark:text-amber-400/80">
                 {node.actionRequired}
@@ -31,25 +34,25 @@ export function DeductionReasonNode({ node, isLast }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {node.occupationalDeduction && (
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/40">
-              <span className="text-[12px] text-muted-foreground">Occupational Deduction</span>
+              <span className="text-[12px] text-muted-foreground">{t("timeline.labels.occupationalDeduction")}</span>
               <span className="text-sm font-semibold text-foreground">{node.occupationalDeduction}</span>
             </div>
           )}
           {node.appreciationDeduction && (
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/40">
-              <span className="text-[12px] text-muted-foreground">Appreciation Deduction</span>
+              <span className="text-[12px] text-muted-foreground">{t("timeline.labels.appreciationDeduction")}</span>
               <span className="text-sm font-semibold text-foreground">{node.appreciationDeduction}</span>
             </div>
           )}
           {node.policyDeductible && (
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/40">
-              <span className="text-[12px] text-muted-foreground">Policy Deductible</span>
+              <span className="text-[12px] text-muted-foreground">{t("timeline.labels.policyDeductible")}</span>
               <span className="text-sm font-semibold text-foreground">{node.policyDeductible}</span>
             </div>
           )}
           {node.nonDamageAmount && (
             <div className="flex items-center justify-between p-3 rounded-lg bg-muted/40">
-              <span className="text-[12px] text-muted-foreground">Non-Damage Amount</span>
+              <span className="text-[12px] text-muted-foreground">{t("timeline.labels.nonDamageAmount")}</span>
               <span className="text-sm font-semibold text-foreground">{node.nonDamageAmount}</span>
             </div>
           )}

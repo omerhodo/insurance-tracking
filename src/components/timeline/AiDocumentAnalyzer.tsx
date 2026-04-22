@@ -11,14 +11,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { useClaimStore } from "@/store/use-claim-store";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
-// Simulated AI analysis steps
-const ANALYSIS_STEPS = [
-  "Belge okunuyor...",
-  "OCR ile metin çıkarılıyor...",
-  "Resmi mühürler doğrulanıyor...",
-  "SEDDK yönetmelikleriyle eşleştiriliyor...",
-  "Analiz tamamlandı.",
+// keys for simulation steps
+const ANALYSIS_STEP_KEYS = [
+  "analyzer.reading",
+  "analyzer.ocr",
+  "analyzer.validating",
+  "analyzer.matching",
+  "analyzer.finished",
 ];
 
 interface Props {
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export function AiDocumentAnalyzer({ nodeId }: Props) {
+  const { t } = useTranslation();
   const analyzer = useClaimStore((s) => s.aiAnalyzer);
   const setAnalyzerFile = useClaimStore((s) => s.setAnalyzerFile);
   const startAnalysis = useClaimStore((s) => s.startAnalysis);
@@ -50,7 +52,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
       let step = 0;
       const interval = setInterval(() => {
         step++;
-        if (step < ANALYSIS_STEPS.length - 1) {
+        if (step < ANALYSIS_STEP_KEYS.length - 1) {
           setCurrentStepIdx(step);
         } else {
           clearInterval(interval);
@@ -81,7 +83,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
           onClick={() => fileInputRef.current?.click()}
         >
           <Upload className="h-4 w-4" />
-          Belge Yükle
+          {t("common.uploadDocument")}
         </Button>
       </>
     );
@@ -137,8 +139,8 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
               )}
             >
               {isSuccess
-                ? "AI Doğrulaması Başarılı"
-                : ANALYSIS_STEPS[currentStepIdx]}
+                ? t("analyzer.success")
+                : t(ANALYSIS_STEP_KEYS[currentStepIdx])}
             </p>
           </div>
         </div>
@@ -152,7 +154,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
             style={{
               width: `${Math.max(
                 15,
-                (currentStepIdx / (ANALYSIS_STEPS.length - 1)) * 100
+                (currentStepIdx / (ANALYSIS_STEP_KEYS.length - 1)) * 100
               )}%`,
             }}
           />

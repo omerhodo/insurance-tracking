@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { AiExplainButton } from "./shared/ai-explain-button";
 import { STATUS_CONFIG } from "./shared/status-config";
 import { CheckCircle2, Clock, Loader2, AlertCircle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import {
   Truck,
   FileText,
@@ -75,6 +76,7 @@ export function TimelineNode({
   children,
   isLast = false,
 }: TimelineNodeProps) {
+  const { t } = useTranslation();
   const cfg = STATUS_CONFIG[node.status] || {
     label: node.status,
     iconColorClass: "text-slate-400",
@@ -137,7 +139,7 @@ export function TimelineNode({
           <div className="flex flex-col gap-1 min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
               <h3 className="text-sm font-semibold text-foreground leading-tight">
-                {node.title}
+                {t(`timeline.nodes.${node.title}`)}
               </h3>
               <Badge
                 variant="outline"
@@ -148,7 +150,7 @@ export function TimelineNode({
                 )}
               >
                 <StatusIcon status={node.status} />
-                <span className="ml-1">{cfg.label}</span>
+                <span className="ml-1">{t(`timeline.status.${node.status}`)}</span>
               </Badge>
             </div>
           </div>

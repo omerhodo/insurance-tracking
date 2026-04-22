@@ -95,7 +95,7 @@ export function HeroSection({ claim }: HeroSectionProps) {
       <div className="relative px-5 pt-5 pb-4 flex items-start justify-between gap-3 flex-wrap">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-0.5">
-            MiOX Sigorta · Hasar Takip Merkezi
+            {t("common.brandName")}
           </p>
           <h1 className="text-xl font-bold text-foreground leading-tight">
             {t("hero.title")}
