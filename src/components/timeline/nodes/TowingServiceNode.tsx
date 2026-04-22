@@ -1,7 +1,8 @@
 "use client";
 
-import { MapPin, Calendar, CheckCircle2 } from "lucide-react";
+import { MapPin, Calendar } from "lucide-react";
 import { TimelineNode } from "@/components/timeline/TimelineNode";
+import { useTranslation } from "react-i18next";
 import type { TowingServiceNode as TTowingServiceNode } from "@/lib/schemas/claim";
 
 interface Props {
@@ -10,14 +11,16 @@ interface Props {
 }
 
 export function TowingServiceNode({ node, isLast }: Props) {
+  const { t } = useTranslation();
+
   return (
     <TimelineNode node={node} isLast={isLast}>
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {node.pickupLocation && (
           <div className="flex items-center gap-2 p-3 rounded-lg bg-muted/40">
             <MapPin className="h-4 w-4 text-muted-foreground shrink-0" />
-            <span className="text-sm font-medium text-foreground">
-              {node.pickupLocation}
+            <span className="text-sm text-foreground">
+              {t("timeline.labels.pickupLocation")}: {node.pickupLocation}
             </span>
           </div>
         )}
@@ -25,7 +28,7 @@ export function TowingServiceNode({ node, isLast }: Props) {
           <div className="flex items-center gap-2 p-3 rounded-lg bg-muted/40">
             <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
             <span className="text-sm text-foreground">
-              {node.towingDate}
+              {t("timeline.labels.towingDate")}: {node.towingDate}
             </span>
           </div>
         )}
