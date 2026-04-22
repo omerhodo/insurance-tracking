@@ -60,6 +60,8 @@ export function NodeRenderer({ node, isLast = false }: NodeRendererProps) {
 
 // ─── Timeline renderer (nodes + dynamic inserts) ─────────────────────────────
 
+import { AddDynamicNodeButton } from "./AddDynamicNodeButton";
+
 interface TimelineProps {
   nodes: readonly ProcessNode[];
 }
@@ -83,13 +85,18 @@ export function Timeline({ nodes }: TimelineProps) {
             <NodeRenderer node={node} isLast={isLast && insertedNodes.length === 0} />
 
             {/* Dynamically inserted custom nodes after this step */}
-            {insertedNodes.map((customNode) => (
+            {insertedNodes.map((customNode, customIdx) => (
               <CustomNodeCard
                 key={customNode.id}
                 afterStepId={node.id}
                 node={customNode}
               />
             ))}
+
+            {/* Insertion Button - only if not the very last item in the whole chain */}
+            {(!isLast || insertedNodes.length > 0) && (
+              <AddDynamicNodeButton afterStepId={node.id} />
+            )}
           </div>
         );
       })}

@@ -34,9 +34,18 @@ function DeductionRow({ item, currency }: { item: DeductionItem; currency: strin
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
+import { AiDocumentAnalyzer } from "../AiDocumentAnalyzer";
+import { useClaimStore } from "@/store/use-claim-store";
+
+// ... inside DeductionReasonNode component ...
 export function DeductionReasonNode({ node, isLast }: Props) {
   const d = node.details;
   const deadlineLabel = formatDeadlineRelative(d.uploadDeadline);
+  const resolvedStatus = useClaimStore((s) => s.aiAnalyzer.resolvedDocumentStatus);
+
+  // If the AI analyzer successfully finished, override the static status.
+  // In a real app, this would persist to the backend.
+  const activeDocumentStatus = resolvedStatus ?? d.documentStatus;
 
   return (
     <TimelineNode node={node} isLast={isLast}>
@@ -83,16 +92,16 @@ export function DeductionReasonNode({ node, isLast }: Props) {
           </div>
         </div>
 
-        {/* Required document section — upload logic wired in Phase 5 */}
+        {/* Required document section */}
         {d.requiresDocument && (
           <>
             <Separator className="opacity-50" />
             <div
               className={cn(
-                "rounded-lg border p-4 space-y-3",
-                d.documentStatus === "PENDING"
+                "rounded-lg border p-4 space-y-3 transition-colors duration-500",
+                activeDocumentStatus === "PENDING"
                   ? "border-amber-500/30 bg-amber-500/8"
-                  : d.documentStatus === "APPROVED"
+                  : activeDocumentStatus === "APPROVED"
                   ? "border-green-500/25 bg-green-500/8"
                   : "border-border/50 bg-muted/30"
               )}
@@ -130,36 +139,28 @@ export function DeductionReasonNode({ node, isLast }: Props) {
                 <Badge
                   variant="outline"
                   className={cn(
-                    "ml-auto text-[10px] uppercase tracking-wide",
-                    d.documentStatus === "PENDING"
+                    "ml-auto text-[10px] uppercase tracking-wide transition-colors",
+                    activeDocumentStatus === "PENDING"
                       ? "status-in-progress"
-                      : d.documentStatus === "APPROVED"
+                      : activeDocumentStatus === "APPROVED"
                       ? "status-completed"
                       : "status-pending"
                   )}
                 >
-                  {d.documentStatus === "PENDING"
+                  {activeDocumentStatus === "PENDING"
                     ? "Yükleme Bekleniyor"
-                    : d.documentStatus === "UPLOADED"
+                    : activeDocumentStatus === "UPLOADED"
                     ? "Yüklendi"
-                    : d.documentStatus === "APPROVED"
+                    : activeDocumentStatus === "APPROVED"
                     ? "Onaylandı"
                     : "Reddedildi"}
                 </Badge>
               </div>
 
-              {/* Upload CTA — interactive logic is implemented in Phase 5 */}
-              {d.documentStatus === "PENDING" && (
-                <Button
-                  id={`upload-doc-btn-${node.id}`}
-                  size="sm"
-                  className="w-full gap-2 bg-amber-500/15 text-amber-300 border border-amber-500/30 hover:bg-amber-500/25 hover:text-amber-200"
-                  variant="outline"
-                >
-                  <Upload className="h-4 w-4" />
-                  Belge Yükle
-                </Button>
-              )}
+              {/* AI Document Analyzer (Handles Upload UI + Simulated AI steps) */}
+              {activeDocumentStatus === "PENDING" ? (
+                <AiDocumentAnalyzer nodeId={node.id} />
+              ) : null}
             </div>
           </>
         )}
