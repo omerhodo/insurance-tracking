@@ -23,9 +23,7 @@ export function CustomNodeCard({ afterStepId, node }: Props) {
 
   return (
     <div
-      className={cn(
-        "relative flex gap-4 group ml-5 mb-4",
-      )}
+      className={cn("relative flex gap-4 group ml-5 mb-4")}
       id={`custom-node-${node.id}`}
     >
       {/* Connector indent line */}
@@ -55,7 +53,9 @@ export function CustomNodeCard({ afterStepId, node }: Props) {
           </div>
 
           {isNote ? (
-            <p className="text-sm text-foreground leading-relaxed">{node.content}</p>
+            <p className="text-sm text-foreground leading-relaxed">
+              {node.content}
+            </p>
           ) : (
             <div className="flex items-center gap-2 text-sm text-foreground">
               <Paperclip className="h-3.5 w-3.5 text-muted-foreground shrink-0" />

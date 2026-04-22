@@ -39,7 +39,9 @@ export function DashboardSkeleton() {
               <Skeleton className="h-10 w-10 rounded-full shrink-0" />
               <div className="flex-1 space-y-3">
                 <Skeleton className="h-10 w-full rounded-t-xl" />
-                <Skeleton className={`h-${i === 2 ? "40" : "24"} w-full rounded-b-xl`} />
+                <Skeleton
+                  className={`h-${i === 2 ? "40" : "24"} w-full rounded-b-xl`}
+                />
               </div>
             </div>
           ))}

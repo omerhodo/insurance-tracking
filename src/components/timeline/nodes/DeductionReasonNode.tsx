@@ -4,10 +4,17 @@ import { AlertTriangle, Clock, Upload } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { TimelineNode } from "../TimelineNode";
-import { formatCurrency, formatDate, formatDeadlineRelative } from "@/lib/formatters";
+import { TimelineNode } from "@/components/timeline/TimelineNode";
+import {
+  formatCurrency,
+  formatDate,
+  formatDeadlineRelative,
+} from "@/lib/formatters";
 import { cn } from "@/lib/utils";
-import type { DeductionReasonNode as TDeductionReasonNode, DeductionItem } from "@/lib/schemas/claim";
+import type {
+  DeductionReasonNode as TDeductionReasonNode,
+  DeductionItem,
+} from "@/lib/schemas/claim";
 
 interface Props {
   node: TDeductionReasonNode;
@@ -16,11 +23,19 @@ interface Props {
 
 // ─── Single deduction row ─────────────────────────────────────────────────────
 
-function DeductionRow({ item, currency }: { item: DeductionItem; currency: string }) {
+function DeductionRow({
+  item,
+  currency,
+}: {
+  item: DeductionItem;
+  currency: string;
+}) {
   return (
     <div className="flex flex-col gap-1.5 py-2.5 border-b border-border/30 last:border-0">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-sm font-medium text-foreground">{item.reason}</span>
+        <span className="text-sm font-medium text-foreground">
+          {item.reason}
+        </span>
         <span className="text-sm font-mono font-bold text-red-400 shrink-0">
           − {formatCurrency(item.amount, currency)}
         </span>
@@ -34,14 +49,16 @@ function DeductionRow({ item, currency }: { item: DeductionItem; currency: strin
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-import { AiDocumentAnalyzer } from "../AiDocumentAnalyzer";
+import { AiDocumentAnalyzer } from "@/components/timeline/AiDocumentAnalyzer";
 import { useClaimStore } from "@/store/use-claim-store";
 
 // ... inside DeductionReasonNode component ...
 export function DeductionReasonNode({ node, isLast }: Props) {
   const d = node.details;
   const deadlineLabel = formatDeadlineRelative(d.uploadDeadline);
-  const resolvedStatus = useClaimStore((s) => s.aiAnalyzer.resolvedDocumentStatus);
+  const resolvedStatus = useClaimStore(
+    (s) => s.aiAnalyzer.resolvedDocumentStatus
+  );
 
   // If the AI analyzer successfully finished, override the static status.
   // In a real app, this would persist to the backend.
@@ -87,7 +104,11 @@ export function DeductionReasonNode({ node, isLast }: Props) {
           </p>
           <div className="rounded-lg border border-border/40 bg-muted/20 px-3">
             {d.deductions.map((item) => (
-              <DeductionRow key={item.reason} item={item} currency={d.currency} />
+              <DeductionRow
+                key={item.reason}
+                item={item}
+                currency={d.currency}
+              />
             ))}
           </div>
         </div>
@@ -102,8 +123,8 @@ export function DeductionReasonNode({ node, isLast }: Props) {
                 activeDocumentStatus === "PENDING"
                   ? "border-amber-500/30 bg-amber-500/8"
                   : activeDocumentStatus === "APPROVED"
-                  ? "border-green-500/25 bg-green-500/8"
-                  : "border-border/50 bg-muted/30"
+                    ? "border-green-500/25 bg-green-500/8"
+                    : "border-border/50 bg-muted/30"
               )}
             >
               <div className="flex items-start gap-2">
@@ -126,7 +147,8 @@ export function DeductionReasonNode({ node, isLast }: Props) {
                     <span
                       className={cn(
                         "font-semibold",
-                        deadlineLabel.includes("saat") || deadlineLabel.includes("dakika")
+                        deadlineLabel.includes("saat") ||
+                          deadlineLabel.includes("dakika")
                           ? "text-red-400"
                           : "text-amber-400"
                       )}
@@ -143,17 +165,17 @@ export function DeductionReasonNode({ node, isLast }: Props) {
                     activeDocumentStatus === "PENDING"
                       ? "status-in-progress"
                       : activeDocumentStatus === "APPROVED"
-                      ? "status-completed"
-                      : "status-pending"
+                        ? "status-completed"
+                        : "status-pending"
                   )}
                 >
                   {activeDocumentStatus === "PENDING"
                     ? "Yükleme Bekleniyor"
                     : activeDocumentStatus === "UPLOADED"
-                    ? "Yüklendi"
-                    : activeDocumentStatus === "APPROVED"
-                    ? "Onaylandı"
-                    : "Reddedildi"}
+                      ? "Yüklendi"
+                      : activeDocumentStatus === "APPROVED"
+                        ? "Onaylandı"
+                        : "Reddedildi"}
                 </Badge>
               </div>
 

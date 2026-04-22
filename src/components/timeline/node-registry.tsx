@@ -82,7 +82,10 @@ export function Timeline({ nodes }: TimelineProps) {
         return (
           <div key={node.id}>
             {/* Process step node */}
-            <NodeRenderer node={node} isLast={isLast && insertedNodes.length === 0} />
+            <NodeRenderer
+              node={node}
+              isLast={isLast && insertedNodes.length === 0}
+            />
 
             {/* Dynamically inserted custom nodes after this step */}
             {insertedNodes.map((customNode, customIdx) => (

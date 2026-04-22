@@ -12,13 +12,20 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate } from "@/lib/formatters";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 import type { Claim } from "@/lib/schemas/claim";
 
 // ─── Claim status display map ─────────────────────────────────────────────────
 
 const STATUS_MAP: Record<
   string,
-  { label: string; colorClass: string; bgClass: string; borderClass: string; dotClass: string }
+  {
+    label: string;
+    colorClass: string;
+    bgClass: string;
+    borderClass: string;
+    dotClass: string;
+  }
 > = {
   PENDING_DEDUCTION_APPROVAL: {
     label: "Kesinti Onayı Bekleniyor",
@@ -72,7 +79,13 @@ interface MetricCardProps {
   className?: string;
 }
 
-function MetricCard({ label, value, subValue, icon, className }: MetricCardProps) {
+function MetricCard({
+  label,
+  value,
+  subValue,
+  icon,
+  className,
+}: MetricCardProps) {
   return (
     <div
       className={cn(
@@ -87,7 +100,9 @@ function MetricCard({ label, value, subValue, icon, className }: MetricCardProps
         </p>
       </div>
       <div>
-        <div className="text-sm font-bold text-foreground leading-tight">{value}</div>
+        <div className="text-sm font-bold text-foreground leading-tight">
+          {value}
+        </div>
         {subValue && (
           <p className="text-[11px] text-muted-foreground mt-0.5">{subValue}</p>
         )}
@@ -128,7 +143,7 @@ export function HeroSection({ claim }: HeroSectionProps) {
         />
         {/* Orbs */}
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute -bottom-16 left-1/3 h-48 w-48 rounded-full bg-purple-500/6 blur-3xl" />
+        <div className="absolute -bottom-16 left-1/3 h-48 w-48 rounded-full bg-blue-500/6 blur-3xl" />
       </div>
 
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
@@ -142,7 +157,9 @@ export function HeroSection({ claim }: HeroSectionProps) {
           </h1>
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap items-center gap-3">
+          <LanguageSwitcher />
+
           <Badge
             variant="outline"
             className="font-mono text-[11px] border-primary/25 text-primary bg-primary/5"
@@ -162,7 +179,9 @@ export function HeroSection({ claim }: HeroSectionProps) {
       <div className="relative px-5 pb-4 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm text-muted-foreground border-b border-border/40">
         <span className="flex items-center gap-1.5">
           <User className="h-3.5 w-3.5 shrink-0" />
-          <span className="font-medium text-foreground">{claim.insuredName}</span>
+          <span className="font-medium text-foreground">
+            {claim.insuredName}
+          </span>
         </span>
         <span className="text-border/60 hidden sm:block">·</span>
         <span className="flex items-center gap-1.5">
@@ -247,7 +266,7 @@ export function HeroSection({ claim }: HeroSectionProps) {
         </div>
         <div className="relative h-2 w-full rounded-full bg-muted/60 overflow-hidden">
           <div
-            className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-primary via-primary/90 to-purple-500 transition-all duration-700"
+            className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-primary via-primary/90 to-blue-500 transition-all duration-700"
             style={{ width: `${claim.progressPercent}%` }}
           />
           {/* Shimmer overlay */}

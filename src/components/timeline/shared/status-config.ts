@@ -28,7 +28,8 @@ export const STATUS_CONFIG: Record<
     iconBgClass: "bg-amber-500/15",
     iconColorClass: "text-amber-400",
     connectorClass: "bg-amber-500/30",
-    dotClass: "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)] animate-pulse",
+    dotClass:
+      "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.6)] animate-pulse",
     borderClass: "border-l-amber-400/60",
   },
   PENDING: {

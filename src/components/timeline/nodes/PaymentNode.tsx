@@ -2,7 +2,7 @@
 
 import { Banknote, Building2, CreditCard, Clock } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { TimelineNode } from "../TimelineNode";
+import { TimelineNode } from "@/components/timeline/TimelineNode";
 import { formatCurrency } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import type { PaymentNode as TPaymentNode } from "@/lib/schemas/claim";
@@ -43,7 +43,9 @@ export function PaymentNode({ node, isLast }: Props) {
               <p className="text-[11px] text-muted-foreground uppercase tracking-wide mb-0.5">
                 Banka
               </p>
-              <p className="text-sm font-semibold text-foreground">{d.bankName}</p>
+              <p className="text-sm font-semibold text-foreground">
+                {d.bankName}
+              </p>
             </div>
           </div>
 
@@ -70,7 +72,9 @@ export function PaymentNode({ node, isLast }: Props) {
           <Banknote className="h-4 w-4 text-muted-foreground shrink-0" />
           <span className="text-xs text-muted-foreground">
             Ödeme Yöntemi:{" "}
-            <span className="font-semibold text-foreground">{d.paymentMethod}</span>
+            <span className="font-semibold text-foreground">
+              {d.paymentMethod}
+            </span>
           </span>
           {d.transactionId && (
             <Badge variant="outline" className="ml-auto font-mono text-xs">

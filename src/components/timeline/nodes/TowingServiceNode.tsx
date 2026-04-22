@@ -1,9 +1,16 @@
 "use client";
 
-import { Phone, MapPin, ArrowRight, Receipt, User, Building2 } from "lucide-react";
+import {
+  Phone,
+  MapPin,
+  ArrowRight,
+  Receipt,
+  User,
+  Building2,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { TimelineNode } from "../TimelineNode";
+import { TimelineNode } from "@/components/timeline/TimelineNode";
 import { formatCurrency, formatDate, formatDistance } from "@/lib/formatters";
 import type { TowingServiceNode as TTowingServiceNode } from "@/lib/schemas/claim";
 
@@ -40,7 +47,9 @@ export function TowingServiceNode({ node, isLast }: Props) {
               <p className="text-[11px] text-muted-foreground mb-0.5 font-medium uppercase tracking-wide">
                 Sürücü
               </p>
-              <p className="text-sm font-semibold text-foreground">{d.driverName}</p>
+              <p className="text-sm font-semibold text-foreground">
+                {d.driverName}
+              </p>
               <a
                 href={`tel:${d.driverPhone}`}
                 className="flex items-center gap-1 text-xs text-primary hover:underline mt-0.5"
@@ -76,7 +85,10 @@ export function TowingServiceNode({ node, isLast }: Props) {
           <div className="flex items-center gap-2">
             <Receipt className="h-4 w-4 text-muted-foreground" />
             <span className="text-xs text-muted-foreground">
-              Fatura: <span className="font-mono text-foreground">{d.invoiceNumber}</span>
+              Fatura:{" "}
+              <span className="font-mono text-foreground">
+                {d.invoiceNumber}
+              </span>
             </span>
           </div>
           <div className="flex items-center gap-2">

@@ -1,0 +1,71 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Retry",
+    "moreInfo": "More Info",
+    "addNote": "Add Note",
+    "addAttachment": "Add Attachment",
+    "pending": "Pending",
+    "inProgress": "In Progress",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "uploadDocument": "Upload Document",
+    "uploaded": "Uploaded",
+    "approved": "Approved",
+    "status": "Status"
+  },
+  "hero": {
+    "title": "AI-Powered Claim Orchestrator",
+    "eta": "Estimated Time",
+    "days": "business days",
+    "urgentAction": "Urgent Action",
+    "urgentDesc": "Previous policy details are required for depreciation calculation.",
+    "progressTitle": "Claim Process Progress",
+    "progressPercent": "{{percent}}% Completed"
+  },
+  "sidebar": {
+    "claimSummary": "Claim Summary",
+    "claimNo": "Claim No",
+    "policyNo": "Policy No",
+    "insured": "Insured",
+    "incidentDate": "Incident Date",
+    "claimDate": "Claim Date",
+    "incidentType": "Incident Type",
+    "netAmount": "Net Amount",
+    "vehicleInfo": "Vehicle Information",
+    "makeModel": "Make / Model",
+    "year": "Year",
+    "color": "Color",
+    "vin": "VIN (Last 8)",
+    "processSteps": "Process Steps",
+    "assignedAdjuster": "Assigned Adjuster",
+    "registrationNo": "Registration No"
+  },
+  "timeline": {
+    "title": "Process Timeline",
+    "completion": "{{completed}} / {{total}} completed",
+    "aiExplain": "AI Explanation",
+    "showSummary": "Show Summary",
+    "noteAdded": "A new internal note has been added. Discussed with the insured.",
+    "customerRep": "Customer Representative",
+    "grossAppraisal": "Gross Appraisal",
+    "totalDeductions": "Total Deductions",
+    "netPayable": "Net Payable",
+    "deductionItems": "Deduction Items",
+    "deadline": "Deadline",
+    "waitingUpload": "Waiting for Upload"
+  },
+  "analyzer": {
+    "reading": "Reading document...",
+    "ocr": "Extracting text via OCR...",
+    "validating": "Validating official seals...",
+    "matching": "Matching with SEDDK regulations...",
+    "success": "AI Verification Successful",
+    "finished": "Analysis completed."
+  },
+  "errors": {
+    "dataLoadFailed": "Failed to Load Data",
+    "serverError": "Could not connect to the server."
+  }
+}

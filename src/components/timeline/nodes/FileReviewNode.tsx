@@ -3,7 +3,7 @@
 import { Mail, FileCheck2, FileX2, StickyNote } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { TimelineNode } from "../TimelineNode";
+import { TimelineNode } from "@/components/timeline/TimelineNode";
 import { getInitials } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import type { FileReviewNode as TFileReviewNode } from "@/lib/schemas/claim";

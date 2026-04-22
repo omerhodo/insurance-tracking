@@ -3,7 +3,7 @@
 import { ShieldCheck, ShieldOff, CheckCircle2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { TimelineNode } from "../TimelineNode";
+import { TimelineNode } from "@/components/timeline/TimelineNode";
 import { formatCurrency } from "@/lib/formatters";
 import { cn } from "@/lib/utils";
 import type { CoverageCheckNode as TCoverageCheckNode } from "@/lib/schemas/claim";

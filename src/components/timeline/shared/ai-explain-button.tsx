@@ -77,30 +77,30 @@ export function AiExplainButton({
           "flex items-center justify-center h-8 w-8 min-h-0 min-w-0",
           "rounded-full transition-all duration-200 cursor-pointer",
           "border-none bg-transparent p-0",
-          "hover:bg-purple-500/10",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/50",
-          isOpen && "bg-purple-500/15",
+          "hover:bg-blue-500/10",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50",
+          isOpen && "bg-blue-500/15",
           className
         )}
       >
         <Sparkles
           className={cn(
             "h-4 w-4 transition-colors duration-200",
-            isOpen ? "text-purple-400" : "text-muted-foreground"
+            isOpen ? "text-blue-400" : "text-muted-foreground"
           )}
         />
       </PopoverTrigger>
 
       <PopoverContent
-        className="w-80 p-0 border-purple-500/20 shadow-xl"
+        className="w-80 p-0 border-blue-500/20 shadow-xl"
         align="end"
         sideOffset={8}
       >
         {/* Header */}
-        <div className="px-4 pt-4 pb-3 border-b border-purple-500/15 bg-purple-500/5 rounded-t-lg">
+        <div className="px-4 pt-4 pb-3 border-b border-blue-500/15 bg-blue-500/5 rounded-t-lg">
           <div className="flex items-center gap-2 mb-1">
-            <Sparkles className="h-4 w-4 text-purple-400 shrink-0" />
-            <span className="text-xs font-semibold text-purple-400 uppercase tracking-wider">
+            <Sparkles className="h-4 w-4 text-blue-400 shrink-0" />
+            <span className="text-xs font-semibold text-blue-400 uppercase tracking-wider">
               AI Asistan
             </span>
           </div>

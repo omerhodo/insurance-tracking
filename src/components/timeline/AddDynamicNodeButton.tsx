@@ -58,7 +58,8 @@ export function AddDynamicNodeButton({ afterStepId }: Props) {
             "hover:bg-primary/10 hover:border-primary/60",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
             "absolute -left-3 top-0",
-            open && "bg-primary text-primary-foreground border-primary hover:bg-primary hover:text-primary-foreground"
+            open &&
+              "bg-primary text-primary-foreground border-primary hover:bg-primary hover:text-primary-foreground"
           )}
         >
           <Plus className="h-3.5 w-3.5" />
@@ -83,7 +84,7 @@ export function AddDynamicNodeButton({ afterStepId }: Props) {
               className="justify-start gap-2 h-9 px-3 text-xs font-medium"
               onClick={() => handleAdd("ATTACHMENT")}
             >
-              <Paperclip className="h-3.5 w-3.5 text-purple-400" /> Ek Ekle
+              <Paperclip className="h-3.5 w-3.5 text-blue-400" /> Ek Ekle
             </Button>
           </div>
         </PopoverContent>

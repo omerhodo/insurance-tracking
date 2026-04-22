@@ -16,11 +16,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import {
-  formatCurrency,
-  formatDate,
-  formatDateOnly,
-} from "@/lib/formatters";
+import { formatCurrency, formatDate, formatDateOnly } from "@/lib/formatters";
 import { STATUS_CONFIG } from "@/components/timeline/shared/status-config";
 import type { Claim, ProcessNode, ProcessStatus } from "@/lib/schemas/claim";
 
@@ -83,13 +79,7 @@ function InfoRow({
 
 // ─── Mini step indicator ──────────────────────────────────────────────────────
 
-function MiniStep({
-  node,
-  index,
-}: {
-  node: ProcessNode;
-  index: number;
-}) {
+function MiniStep({ node, index }: { node: ProcessNode; index: number }) {
   const cfg = STATUS_CONFIG[node.status];
 
   const StatusDot = () => {
@@ -97,7 +87,9 @@ function MiniStep({
       case "COMPLETED":
         return <CheckCircle2 className="h-4 w-4 text-green-500 shrink-0" />;
       case "IN_PROGRESS":
-        return <Loader2 className="h-4 w-4 text-amber-400 animate-spin shrink-0" />;
+        return (
+          <Loader2 className="h-4 w-4 text-amber-400 animate-spin shrink-0" />
+        );
       case "PENDING":
         return <Clock className="h-4 w-4 text-slate-400 shrink-0" />;
       case "REJECTED":
@@ -122,8 +114,8 @@ function MiniStep({
           node.status === "IN_PROGRESS"
             ? "font-semibold text-amber-300"
             : node.status === "COMPLETED"
-            ? "text-muted-foreground line-through decoration-muted-foreground/40"
-            : "text-muted-foreground"
+              ? "text-muted-foreground line-through decoration-muted-foreground/40"
+              : "text-muted-foreground"
         )}
       >
         {node.title}
@@ -156,10 +148,7 @@ export function ClaimSidebar({ claim }: ClaimSidebarProps) {
         <div className="space-y-0">
           <InfoRow label="Hasar No" value={claim.claimId} mono />
           <InfoRow label="Poliçe No" value={claim.policyNumber} mono />
-          <InfoRow
-            label="Sigortalı"
-            value={claim.insuredName}
-          />
+          <InfoRow label="Sigortalı" value={claim.insuredName} />
           <InfoRow
             label="Hasar Tarihi"
             value={formatDateOnly(claim.incidentDate)}
@@ -205,14 +194,13 @@ export function ClaimSidebar({ claim }: ClaimSidebarProps) {
           </Badge>
         </div>
         <div className="space-y-0">
-          <InfoRow label="Marka / Model" value={`${vehicle.make} ${vehicle.model}`} />
+          <InfoRow
+            label="Marka / Model"
+            value={`${vehicle.make} ${vehicle.model}`}
+          />
           <InfoRow label="Yıl" value={String(vehicle.year)} />
           <InfoRow label="Renk" value={vehicle.color} />
-          <InfoRow
-            label="VIN (Son 8)"
-            value={vehicle.vin.slice(-8)}
-            mono
-          />
+          <InfoRow label="VIN (Son 8)" value={vehicle.vin.slice(-8)} mono />
         </div>
       </SidebarCard>
 

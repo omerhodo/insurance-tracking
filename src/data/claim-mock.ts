@@ -21,7 +21,8 @@ export const MOCK_CLAIM_DATA = {
   currentStatus: "PENDING_DEDUCTION_APPROVAL",
   estimatedCompletionDays: 7,
   urgentActionRequired: true,
-  urgentActionMessage: "Occupational certificate upload required within 48 hours.",
+  urgentActionMessage:
+    "Occupational certificate upload required within 48 hours.",
   totalEstimatedDamage: 42500,
   currency: "TRY",
   progressPercent: 68,
@@ -83,7 +84,11 @@ export const MOCK_CLAIM_DATA = {
         damageAreas: [
           { area: "Front Bumper", severity: "Total Loss", estimatedCost: 8200 },
           { area: "Hood", severity: "Major", estimatedCost: 12000 },
-          { area: "Left Headlight", severity: "Total Loss", estimatedCost: 4800 },
+          {
+            area: "Left Headlight",
+            severity: "Total Loss",
+            estimatedCost: 4800,
+          },
           { area: "Radiator", severity: "Major", estimatedCost: 9500 },
           { area: "Airbag System", severity: "Triggered", estimatedCost: 8000 },
         ],
@@ -109,7 +114,8 @@ export const MOCK_CLAIM_DATA = {
         exclusionsChecked: ["Racing", "DUI", "Intentional Damage"],
         exclusionsApplied: [],
         confirmedBy: "Ayşe Yıldız",
-        notes: "Policy is active. No exclusions apply. Coverage confirmed up to limit.",
+        notes:
+          "Policy is active. No exclusions apply. Coverage confirmed up to limit.",
       },
     },
     {

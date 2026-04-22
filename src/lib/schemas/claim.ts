@@ -76,7 +76,12 @@ const DeductionItemSchema = z.object({
   description: z.string(),
 });
 
-const DocumentStatusSchema = z.enum(["PENDING", "UPLOADED", "APPROVED", "REJECTED"]);
+const DocumentStatusSchema = z.enum([
+  "PENDING",
+  "UPLOADED",
+  "APPROVED",
+  "REJECTED",
+]);
 
 const DeductionReasonDetailsSchema = z.object({
   originalAppraisalCost: z.number().nonnegative(),

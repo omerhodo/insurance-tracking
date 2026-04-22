@@ -1,0 +1,71 @@
+{
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "retry": "Tekrar Dene",
+    "moreInfo": "Daha Fazla Bilgi",
+    "addNote": "Not Ekle",
+    "addAttachment": "Ek Ekle",
+    "pending": "Beklemede",
+    "inProgress": "Devam Ediyor",
+    "completed": "Tamamlandı",
+    "rejected": "Reddedildi",
+    "uploadDocument": "Belge Yükle",
+    "uploaded": "Yüklendi",
+    "approved": "Onaylandı",
+    "status": "Durum"
+  },
+  "hero": {
+    "title": "AI Destekli Hasar Orkestratörü",
+    "eta": "Tahmini Süre",
+    "days": "iş günü",
+    "urgentAction": "Acil Aksiyon",
+    "urgentDesc": "Aşınma payı hesaplaması için eski poliçe bilgileri bekleniyor.",
+    "progressTitle": "Hasar Süreç İlerlemesi",
+    "progressPercent": "%{{percent}} Tamamlandı"
+  },
+  "sidebar": {
+    "claimSummary": "Hasar Özeti",
+    "claimNo": "Hasar No",
+    "policyNo": "Poliçe No",
+    "insured": "Sigortalı",
+    "incidentDate": "Hasar Tarihi",
+    "claimDate": "Bildirim Tarihi",
+    "incidentType": "Olay Türü",
+    "netAmount": "Net Tutar",
+    "vehicleInfo": "Araç Bilgileri",
+    "makeModel": "Marka / Model",
+    "year": "Yıl",
+    "color": "Renk",
+    "vin": "VIN (Son 8)",
+    "processSteps": "İşlem Adımları",
+    "assignedAdjuster": "Atanan Eksper",
+    "registrationNo": "Kayıt No"
+  },
+  "timeline": {
+    "title": "Süreç Zaman Çizelgesi",
+    "completion": "{{completed}} / {{total}} tamamlandı",
+    "aiExplain": "AI Açıklaması",
+    "showSummary": "Özeti Göster",
+    "noteAdded": "Sisteme yeni bir ara not eklendi. Sigortalı ile görüşüldü.",
+    "customerRep": "Müşteri Temsilcisi",
+    "grossAppraisal": "Brüt Ekspertiz",
+    "totalDeductions": "Toplam Kesinti",
+    "netPayable": "Net Ödenecek",
+    "deductionItems": "Kesinti Kalemleri",
+    "deadline": "Son tarih",
+    "waitingUpload": "Yükleme Bekleniyor"
+  },
+  "analyzer": {
+    "reading": "Belge okunuyor...",
+    "ocr": "OCR ile metin çıkarılıyor...",
+    "validating": "Resmi mühürler doğrulanıyor...",
+    "matching": "SEDDK yönetmelikleriyle eşleştiriliyor...",
+    "success": "AI Doğrulaması Başarılı",
+    "finished": "Analiz tamamlandı."
+  },
+  "errors": {
+    "dataLoadFailed": "Veri Yüklenemedi",
+    "serverError": "Sunucuya bağlanılamadı."
+  }
+}

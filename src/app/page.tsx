@@ -11,14 +11,22 @@ import { Timeline } from "@/components/timeline";
 
 // ─── Error state ──────────────────────────────────────────────────────────────
 
-function ErrorState({ message, onRetry }: { message: string; onRetry: () => void }) {
+function ErrorState({
+  message,
+  onRetry,
+}: {
+  message: string;
+  onRetry: () => void;
+}) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-5 text-center px-4">
       <div className="flex items-center justify-center h-16 w-16 rounded-full bg-red-500/10 border border-red-500/20">
         <AlertTriangle className="h-8 w-8 text-red-400" />
       </div>
       <div className="space-y-1">
-        <h2 className="text-lg font-semibold text-foreground">Veri Yüklenemedi</h2>
+        <h2 className="text-lg font-semibold text-foreground">
+          Veri Yüklenemedi
+        </h2>
         <p className="text-sm text-muted-foreground max-w-sm">{message}</p>
       </div>
       <Button
@@ -58,7 +66,6 @@ export default function HomePage() {
     >
       {/* ── Content container ─── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-
         {/* Loading */}
         {isLoading && <DashboardSkeleton />}
 
@@ -82,16 +89,22 @@ export default function HomePage() {
              * Desktop (≥ lg): two columns — timeline (flexible) | sidebar (340px, sticky)
              */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-6 items-start">
-
               {/* ── Timeline panel ─────────────────────────────────────────── */}
-              <main id="claim-timeline" aria-label="Hasar süreç zaman çizelgesi">
+              <main
+                id="claim-timeline"
+                aria-label="Hasar süreç zaman çizelgesi"
+              >
                 <div className="flex items-center gap-2 mb-5">
                   <h2 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
                     Süreç Zaman Çizelgesi
                   </h2>
                   <div className="flex-1 h-px bg-border/40" />
                   <span className="text-xs text-muted-foreground">
-                    {claim.processDetails.filter((s) => s.status === "COMPLETED").length}
+                    {
+                      claim.processDetails.filter(
+                        (s) => s.status === "COMPLETED"
+                      ).length
+                    }
                     {" / "}
                     {claim.processDetails.length} tamamlandı
                   </span>
@@ -101,10 +114,12 @@ export default function HomePage() {
               </main>
 
               {/* ── Sidebar panel ──────────────────────────────────────────── */}
-              <div className="lg:sticky lg:top-6 lg:self-start" aria-label="Hasar özet paneli">
+              <div
+                className="lg:sticky lg:top-6 lg:self-start"
+                aria-label="Hasar özet paneli"
+              >
                 <ClaimSidebar claim={claim} />
               </div>
-
             </div>
           </div>
         )}

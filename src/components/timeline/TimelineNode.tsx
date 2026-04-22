@@ -47,7 +47,11 @@ interface TimelineNodeProps {
  * - Card header: title, status badge, completedAt, AI explain button
  * - Card body: children (node-specific content)
  */
-export function TimelineNode({ node, children, isLast = false }: TimelineNodeProps) {
+export function TimelineNode({
+  node,
+  children,
+  isLast = false,
+}: TimelineNodeProps) {
   const cfg = STATUS_CONFIG[node.status];
 
   return (

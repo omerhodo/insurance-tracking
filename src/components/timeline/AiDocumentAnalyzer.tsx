@@ -1,7 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Upload, FileText, CheckCircle2, Loader2, Sparkles } from "lucide-react";
+import {
+  Upload,
+  FileText,
+  CheckCircle2,
+  Loader2,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useClaimStore } from "@/store/use-claim-store";
 import { cn } from "@/lib/utils";
@@ -12,7 +18,7 @@ const ANALYSIS_STEPS = [
   "OCR ile metin çıkarılıyor...",
   "Resmi mühürler doğrulanıyor...",
   "SEDDK yönetmelikleriyle eşleştiriliyor...",
-  "Analiz tamamlandı."
+  "Analiz tamamlandı.",
 ];
 
 interface Props {
@@ -90,7 +96,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
         "p-3 rounded-lg border transition-colors duration-500",
         isSuccess
           ? "border-green-500/30 bg-green-500/10"
-          : "border-purple-500/40 bg-purple-500/10"
+          : "border-blue-500/40 bg-blue-500/10"
       )}
     >
       <div className="flex items-center gap-3">
@@ -100,7 +106,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
             "flex items-center justify-center h-10 w-10 rounded-lg shrink-0 transition-colors",
             isSuccess
               ? "bg-green-500/20 text-green-400"
-              : "bg-purple-500/20 text-purple-400"
+              : "bg-blue-500/20 text-blue-400"
           )}
         >
           {isSuccess ? (
@@ -117,7 +123,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
           </p>
           <div className="flex items-center gap-1.5 mt-0.5">
             {!isSuccess && (
-              <Loader2 className="h-3 w-3 text-purple-400 animate-spin shrink-0" />
+              <Loader2 className="h-3 w-3 text-blue-400 animate-spin shrink-0" />
             )}
             {isSuccess && (
               <Sparkles className="h-3 w-3 text-green-400 shrink-0" />
@@ -127,7 +133,7 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
                 "text-[11px] uppercase tracking-wide truncate transition-colors",
                 isSuccess
                   ? "text-green-400 font-bold"
-                  : "text-purple-400 font-semibold"
+                  : "text-blue-400 font-semibold"
               )}
             >
               {isSuccess
@@ -140,9 +146,9 @@ export function AiDocumentAnalyzer({ nodeId }: Props) {
 
       {/* Progress Bar (Loading only) */}
       {!isSuccess && (
-        <div className="mt-3 relative h-1.5 w-full rounded-full bg-purple-500/20 overflow-hidden">
+        <div className="mt-3 relative h-1.5 w-full rounded-full bg-blue-500/20 overflow-hidden">
           <div
-            className="absolute left-0 top-0 h-full rounded-full bg-purple-500 transition-all duration-500"
+            className="absolute left-0 top-0 h-full rounded-full bg-blue-500 transition-all duration-500"
             style={{
               width: `${Math.max(
                 15,
