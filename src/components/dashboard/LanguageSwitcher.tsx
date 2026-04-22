@@ -36,7 +36,7 @@ export function LanguageSwitcher() {
         )}
       >
         <Globe className="h-3.5 w-3.5 text-muted-foreground" />
-        {i18n.language.toLocaleUpperCase()}
+        {i18n.language.toLocaleUpperCase(i18n.language)}
       </PopoverTrigger>
       <PopoverContent className="w-32 p-1" align="end" sideOffset={8}>
         <div className="flex flex-col gap-1">
