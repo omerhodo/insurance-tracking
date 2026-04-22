@@ -17,28 +17,21 @@ interface NodeRendererProps {
   isLast?: boolean;
 }
 
+const NODE_REGISTRY: Record<ProcessNode["title"], React.ComponentType<{ node: any; isLast?: boolean }>> = {
+  "Towing Service": TowingServiceNode,
+  "Claim Notification": ClaimNotificationNode,
+  "Appraisal": AppraisalNode,
+  "Substitute Rental Vehicle": SubstituteRentalVehicleNode,
+  "File Review": FileReviewNode,
+  "Deduction Reason": DeductionReasonNode,
+  "Payment Information": PaymentInformationNode,
+  "Closed": ClosedNode,
+};
+
 export function NodeRenderer({ node, isLast = false }: NodeRendererProps) {
-  switch (node.title) {
-    case "Towing Service":
-      return <TowingServiceNode node={node} isLast={isLast} />;
-    case "Claim Notification":
-      return <ClaimNotificationNode node={node} isLast={isLast} />;
-    case "Appraisal":
-      return <AppraisalNode node={node} isLast={isLast} />;
-    case "Substitute Rental Vehicle":
-      return <SubstituteRentalVehicleNode node={node} isLast={isLast} />;
-    case "File Review":
-      return <FileReviewNode node={node} isLast={isLast} />;
-    case "Deduction Reason":
-      return <DeductionReasonNode node={node} isLast={isLast} />;
-    case "Payment Information":
-      return <PaymentInformationNode node={node} isLast={isLast} />;
-    case "Closed":
-      return <ClosedNode node={node} isLast={isLast} />;
-    default:
-      const _exhaustiveCheck: never = node;
-      return null;
-  }
+  const Component = NODE_REGISTRY[node.title];
+  if (!Component) return null;
+  return <Component node={node} isLast={isLast} />;
 }
 
 import { AddDynamicNodeButton } from "./AddDynamicNodeButton";
