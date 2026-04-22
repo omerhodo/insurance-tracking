@@ -1,8 +1,9 @@
-import { GoogleGenAI } from "@google/genai";
 import type { Claim } from "@/lib/schemas/claim";
+import { GoogleGenAI } from "@google/genai";
 
 export interface AiProvider {
   generateSummary(claim: Claim, language: string): Promise<string>;
+  explainStep(step: any, language: string): Promise<string>;
 }
 
 export class GeminiProvider implements AiProvider {
@@ -19,12 +20,12 @@ export class GeminiProvider implements AiProvider {
   async generateSummary(claim: Claim, language: string): Promise<string> {
     const prompt = `
       You are an AI assistant for an insurance company. Your job is to analyze the following insurance claim data and provide a concise, professional summary for the user.
-      
+
       Language requested: ${language} (Please respond ONLY in this language).
-      
+
       Claim Data:
       ${JSON.stringify(claim, null, 2)}
-      
+
       Requirements for the summary:
       1. Start with the file number and the overall status.
       2. Mention how many steps are completed and how many are pending.
@@ -43,6 +44,36 @@ export class GeminiProvider implements AiProvider {
     } catch (error) {
       console.error("Gemini API Error:", error);
       throw new Error("Failed to generate AI summary from Gemini.");
+    }
+  }
+
+  async explainStep(step: any, language: string): Promise<string> {
+    const prompt = `
+      You are an AI assistant for an insurance company. Your job is to explain a specific step in an insurance claim process to the user in a simple, reassuring, and professional manner.
+
+      Language requested: ${language} (Please respond ONLY in this language).
+
+      Step Data:
+      ${JSON.stringify(step, null, 2)}
+
+      Requirements for the explanation:
+      1. Explain what this step means in plain language.
+      2. Mention the current status ("${step.status}").
+      3. If there is an "actionRequired" field, emphasize what the user needs to do.
+      4. If the step is "In Progress" or "Pending", explain what the company is doing.
+      5. Keep it concise (max 3-4 sentences).
+    `;
+
+    try {
+      const response = await this.ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+      });
+
+      return response.text || "No explanation generated.";
+    } catch (error) {
+      console.error("Gemini API Error:", error);
+      throw new Error("Failed to generate AI explanation from Gemini.");
     }
   }
 }

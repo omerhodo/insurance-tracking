@@ -157,8 +157,7 @@ export function TimelineNode({
 
           {/* AI Explain button */}
           <AiExplainButton
-            stepId={node.id!}
-            nodeType={node.title}
+            step={node}
             className="shrink-0"
           />
         </div>

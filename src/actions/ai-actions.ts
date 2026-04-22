@@ -28,3 +28,25 @@ export async function generateAiSummary(
     return t("ai.error");
   }
 }
+
+export async function explainTimelineStep(
+  step: any,
+  language: string
+): Promise<string> {
+  const t = (key: string) => {
+    const [section, sub] = key.split(".");
+    return locales[language]?.actions?.[section]?.[sub] || key;
+  };
+
+  try {
+    const provider = new GeminiProvider();
+    const explanation = await provider.explainStep(step, language);
+    return explanation;
+  } catch (error: any) {
+    console.error("Error in explainTimelineStep action:", error);
+    if (error.message.includes("GEMINI_API_KEY")) {
+      return t("ai.keyMissing");
+    }
+    return t("ai.error");
+  }
+}

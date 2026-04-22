@@ -56,6 +56,8 @@
     "waitingUpload": "Yükleme Bekleniyor",
     "aiAssistant": "AI Asistan",
     "aiDisclaimer": "Bu açıklama, karmaşık sigorta terimlerini anlaşılır kılmak için AI tarafından oluşturulmuştur.",
+    "aiLoading": "AI yanıtı hazırlanıyor...",
+    "aiError": "Açıklama getirilirken bir hata oluştu.",
     "noExplanation": "Bu adım hakkında detaylı bilgi bulunmamaktadır.",
     "nodes": {
       "Towing Service": "Araç Çekme",
@@ -101,32 +103,6 @@
       "paymentAmount": "Ödeme Tutarı",
       "note": "Not",
       "completionDate": "Tamamlanma Tarihi"
-    },
-    "aiExplanations": {
-      "Towing Service": {
-        "title": "Araç Çekme Hizmeti Hakkında",
-        "content": "Araç çekme hizmeti, kaza sonrası aracınızın yetkili servis merkezine güvenli şekilde taşınmasını sağlar. Bu adım otomatik olarak başlatılır; amaç, ekspertiz öncesinde hasarın korunarak doğru tespit edilmesini sağlamaktır. Çekici firması, TRAMER uyumlu anlaşmalı hizmet sağlayıcıları arasından seçilir."
-      },
-      "File Review": {
-        "title": "Dosya İnceleme ve Kayıt Hakkında",
-        "content": "Dosya inceleme sürecinde atanmış ekspern tüm belgelerinizi poliçe şartlarına göre doğrular. Eksik belgeler bu aşamada tespit edilir ve sürecin ilerlemesi için tamamlanması istenir. Kayıt numarası oluşturulması, talebinizin resmi olarak sisteme alındığını ifade eder."
-      },
-      "Appraisal": {
-        "title": "Araç Ekspertizi Hakkında",
-        "content": "Ekspertiz, TRAMER lisanslı bir uzman tarafından her hasar bölgesinin ayrı ayrı değerlendirildiği kritik bir adımdır. 'Toplam Hasar' (Total Loss) tespiti, parçanın tamir maliyetinin yeni parça maliyetinin %70'ini aşması durumunda verilir. Ekspertiz raporu, kesinti hesaplamalarının ve ödeme tutarının temelini oluşturur."
-      },
-      "Claim Notification": {
-        "title": "Poliçe Kapsam Doğrulaması Hakkında",
-        "content": "Kapsam doğrulaması, hasar talebinin sigorta poliçenizin kapsamında olup olmadığını belirler. Muafiyet tutarı, hasar ödemesinden önce sigortalının karşıladığı sabit bir miktardır. Kapsam dışı durumlar (yarış, DUI vb.) bu aşamada tespit edilir; hiçbirinin uygulanmadığı onaylanmıştır."
-      },
-      "Deduction Reason": {
-        "title": "Kesinti Gerekçeleri Hakkında",
-        "content": "Kesintiler SEDDK yönetmelikleri çerçevesinde uygulanır. 'Aşınma Payı' (depreciation), aracın yaşı ve kilometre durumuna göre aktüeryal tablolar kullanılarak hesaplanan yasal bir indirimdir. Poliçe muafiyeti ise sözleşmenin 4.2.1 maddesinde tanımlanan sabit bir tutardır. Bu kesintiler yasal zorunluluk olup değiştirilemez."
-      },
-      "Payment Information": {
-        "title": "Ödeme İşlemi Hakkında",
-        "content": "Net tazminat tutarı, tüm kesintiler onaylandıktan sonra poliçenizde kayıtlı IBAN'a EFT ile aktarılır. Bankalararası EFT süreleri genellikle 1–2 iş günüdür. İşlem başladığında size bir hareket numarası (Transaction ID) iletilecektir. Ödeme aşamasının başlayabilmesi için Kesinti Gerekçesi adımının tamamlanması gerekmektedir."
-      }
     }
   },
   "analyzer": {
