@@ -1,6 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
-import { QueryProvider } from "@/providers/query-provider";
 import { TranslationProvider } from "@/providers/i18n-provider";
+import { QueryProvider } from "@/providers/query-provider";
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
