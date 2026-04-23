@@ -1,14 +1,14 @@
 "use client";
 
-import { AlertTriangle, RefreshCw } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useClaimData, CLAIM_QUERY_KEY } from "@/hooks/use-claim-data";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import { HeroSection } from "@/components/dashboard/HeroSection";
 import { ClaimSidebar } from "@/components/dashboard/ClaimSidebar";
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
+import { HeroSection } from "@/components/dashboard/HeroSection";
 import { Timeline } from "@/components/timeline";
+import { Button } from "@/components/ui/button";
+import { CLAIM_QUERY_KEY, useClaimData } from "@/hooks/use-claim-data";
+import { useQueryClient } from "@tanstack/react-query";
+import { AlertTriangle, RefreshCw } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // ─── Error state ──────────────────────────────────────────────────────────────
 
